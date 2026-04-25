@@ -18,7 +18,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["./shared/*"]
+    },
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "netlify/functions", "shared"]
 }

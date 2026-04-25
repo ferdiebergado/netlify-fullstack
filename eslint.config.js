@@ -32,12 +32,12 @@ export default defineConfig([
     rules: unicornRelaxedRules,
   },
   {
-    files: ['netlify/**/*.ts'],
+    files: ['shared/**/*.ts'],
     extends: [js.configs.recommended, tseslint.configs.strictTypeChecked, sharedExtends],
     languageOptions: {
       globals: globals.node,
       parserOptions: {
-        project: ['./tsconfig.netlify.json'],
+        project: ['./tsconfig.node.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
