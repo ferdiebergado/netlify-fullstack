@@ -1,0 +1,124 @@
+import type { Client } from '@libsql/client';
+
+import { SessionSchema, type CreateSession, type Session } from '@shared/schemas/session';
+import logger from '../logger';
+
+type SessionRow = {
+  id: number;
+  session_id: string;
+  user_id: number;
+  expires_at: string;
+  last_active_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export async function createSession(db: Client, session: CreateSession): Promise<Session> {
+  logger.info('[DB]: Creating session...');
+
+  const sql = `
+INSERT INTO sessions (session_id, user_id, expires_at)
+VALUES (?, ?, ?)
+RETURNING *
+`;
+
+  const { rows } = await db.execute(sql, [
+    session.sessionId,
+    session.userId,
+    session.expiresAt.toISOString(),
+  ]);
+  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+}
+
+export async function findSession(db: Client, id: string): Promise<Session | undefined> {
+  logger.info('[DB]: Retrieving session...');
+
+  const now = new Date().toISOString();
+
+  const sql = `
+SELECT *
+FROM sessions
+WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL 
+LIMIT 1
+`;
+
+  const { rows } = await db.execute(sql, [id, now]);
+
+  if (rows.length === 0) {
+    reportMissingSession(id);
+    return;
+  }
+
+  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+}
+
+export async function touchSession(db: Client, id: string): Promise<Session | undefined> {
+  logger.info('Updating session...');
+
+  const sql = `
+      UPDATE sessions
+      SET last_active_at = ?, updated_at = ?
+      WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
+      RETURNING *
+      `;
+
+  const now = new Date().toISOString();
+
+  const { rows } = await db.execute(sql, [now, now, id, now]);
+
+  if (rows.length === 0) {
+    reportMissingSession(id);
+    return;
+  }
+
+  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+}
+
+export async function softDeleteSession(db: Client, id: string): Promise<boolean> {
+  const now = new Date().toISOString();
+
+  const sql = `
+UPDATE sessions
+SET deleted_at = ?
+WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
+    `;
+
+  const { rowsAffected } = await db.execute(sql, [now, id, now]);
+
+  return rowsAffected === 1;
+}
+
+export async function revokeSession(
+  db: Client,
+  sessionId: string,
+  userId: number
+): Promise<boolean> {
+  logger.info('[DB]: Revoking session...');
+
+  const now = new Date().toISOString();
+
+  const sql = `
+UPDATE sessions
+SET is_revoked = 1, updated_at = ?
+WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL 
+`;
+
+  const { rowsAffected } = await db.execute(sql, [now, sessionId, userId, now]);
+
+  return rowsAffected === 1;
+}
+
+const mapSessionRowToSession = (row: SessionRow): Session =>
+  SessionSchema.parse({
+    id: row.id,
+    sessionId: row.session_id,
+    userId: row.user_id,
+    expiresAt: new Date(row.expires_at),
+    lastActiveAt: row.last_active_at,
+    updatedAt: row.updated_at,
+    createdAt: row.created_at,
+  });
+
+const reportMissingSession = (sessionId: string) => {
+  logger.warn({ sessionId }, 'Session not found');
+};
