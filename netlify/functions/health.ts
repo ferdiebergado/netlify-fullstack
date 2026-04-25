@@ -1,11 +1,17 @@
-import type { Config, Context } from '@netlify/functions';
+import { getDb } from './lib/db';
+import { checkMethod } from './lib/http';
+import { respondWithError } from './lib/http/errors';
 
-export const config: Config = {
-  path: '/api/health',
-};
+export default async (req: Request) => {
+  try {
+    checkMethod(req, ['GET']);
 
-export default (req: Request, ctx: Context) => {
-  return Response.json({
-    status: 'ok',
-  });
+    await getDb();
+
+    return Response.json({
+      status: 'up',
+    });
+  } catch (error) {
+    return respondWithError(error);
+  }
 };
