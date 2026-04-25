@@ -1,0 +1,27 @@
+{
+  "extends": "@tsconfig/node22/tsconfig.json",
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "types": ["node"],
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+
+    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.edge-functions.tsbuildinfo"
+  }
+}

@@ -32,12 +32,24 @@ export default defineConfig([
     rules: unicornRelaxedRules,
   },
   {
-    files: ['shared/**/*.ts'],
+    files: ['shared/**/*.ts', 'netlify/functions/**/*.ts'],
     extends: [js.configs.recommended, tseslint.configs.strictTypeChecked, sharedExtends],
     languageOptions: {
       globals: globals.node,
       parserOptions: {
         project: ['./tsconfig.node.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: unicornRelaxedRules,
+  },
+  {
+    files: ['netlify/edge-functions/**/*.ts'],
+    extends: [js.configs.recommended, tseslint.configs.strictTypeChecked, sharedExtends],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        project: ['./netlify/edge-functions/tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

@@ -6,6 +6,10 @@ environment = { NODE_VERSION = "22.22.0" }
 [functions]
 directory = "netlify/functions"
 
+[[edge_functions]]
+path = "/api/*"
+function = "request"
+
 [[redirects]]
 from = "/api/*"
 to = "/.netlify/functions/:splat"
