@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "netlify dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -21,6 +21,7 @@
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "google-auth-library": "10.6.2",
+    "netlify-cli": "25.6.0",
     "pino": "10.3.1",
     "react": "19.2.5",
     "react-dom": "19.2.5",

@@ -1,0 +1,21 @@
+[build]
+command = "npm run build"
+publish = "dist"
+environment = { NODE_VERSION = "22.22.0" }
+
+[functions]
+directory = "netlify/functions"
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[dev]
+command = "vite"
+port = 8888
