@@ -49,7 +49,7 @@ export default defineConfig([
     languageOptions: {
       globals: globals.node,
       parserOptions: {
-        project: ['./netlify/edge-functions/tsconfig.json'],
+        project: ['./tsconfig.edge-functions.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

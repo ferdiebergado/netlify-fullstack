@@ -10,6 +10,19 @@ directory = "netlify/functions"
 path = "/api/*"
 function = "request"
 
+[[edge_functions]]
+path = "/api/*"
+function = "json"
+
+[[edge_functions]]
+path = "/api/*"
+excludedPath = "/api/signin"
+function = "session"
+
+[[edge_functions]]
+path = "/api/*"
+function = "csrf"
+
 [[redirects]]
 from = "/api/*"
 to = "/.netlify/functions/:splat"
