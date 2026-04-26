@@ -1,5 +1,6 @@
 import type { RouteObject } from 'react-router';
 
+import GuestLayout from '@/components/guest-layout';
 import Layout from '@/components/layout';
 import OauthCallback from '@/features/auth/components/oauth-callback';
 import RequireGuest from '@/features/auth/components/require-guest';
@@ -18,7 +19,7 @@ export const paths = {
 
 export const routes: RouteObject[] = [
   {
-    Component: Layout,
+    Component: GuestLayout,
     children: [
       {
         path: paths.home,
@@ -37,6 +38,11 @@ export const routes: RouteObject[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    Component: Layout,
+    children: [
       {
         Component: RequireUser,
         children: [
