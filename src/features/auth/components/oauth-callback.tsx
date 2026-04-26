@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { paths } from '@/app/routes';
-import Spinner from '@/components/spinner';
+import SplashScreen from '@/components/splash-screen';
 import { useSignin, validateState } from '..';
 
 export default function OauthCallback() {
@@ -21,7 +21,7 @@ export default function OauthCallback() {
     signin(code, { onSuccess: () => navigate(state?.from ?? paths.dashboard, { replace: true }) });
   }, [navigate, searchParams, signin, state?.from]);
 
-  if (isPending) return <Spinner text="Signing in..." />;
+  if (isPending) return <SplashScreen />;
 
   if (isError)
     return (
