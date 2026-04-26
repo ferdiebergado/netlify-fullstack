@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { paths } from '@/app/routes';
 import config from '@/config';
@@ -50,13 +50,12 @@ export function useSignin() {
 
 const fetchMe = async (): Promise<Profile | null> => await api.get<Profile>('/me');
 
-export function useMe() {
-  return useQuery({
+export const useMe = () =>
+  useSuspenseQuery({
     queryKey: QUERY_KEYS.USER,
     queryFn: fetchMe,
     retry: false,
   });
-}
 
 const signout = async () => await api.post('/signout', {});
 

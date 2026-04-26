@@ -1,21 +1,19 @@
 import { paths } from '@/app/routes';
-import Spinner from '@/components/spinner';
+import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { useMe } from '..';
 
 export default function RequireUser() {
-  const { isLoading, isError, error, data: user } = useMe();
+  const { data: user } = useMe();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    if (!user) navigate(paths.signin, { replace: true, state: { from: pathname } });
+  }, [navigate, pathname, user]);
 
-  if (isError)
-    return (
-      <p className="text-destructive">{error instanceof Error ? error.message : String(error)}</p>
-    );
-
-  if (!user) navigate(paths.signin, { replace: true, state: { from: pathname } });
+  // eslint-disable-next-line unicorn/no-null
+  if (!user) return null;
 
   return <Outlet />;
 }

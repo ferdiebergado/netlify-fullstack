@@ -1,21 +1,20 @@
-import { paths } from '@/app/routes';
-import Spinner from '@/components/spinner';
 import { Outlet, useLocation, useNavigate } from 'react-router';
+
+import { paths } from '@/app/routes';
+import { useEffect } from 'react';
 import { useMe } from '..';
 
 export default function RequireGuest() {
-  const { isLoading, isError, error, data: user } = useMe();
+  const { data: user } = useMe();
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    if (user) navigate(state?.from ?? paths.dashboard, { replace: true });
+  }, [navigate, state?.from, user]);
 
-  if (isError)
-    return (
-      <p className="text-destructive">{error instanceof Error ? error.message : String(error)}</p>
-    );
-
-  if (user) navigate(state?.from ?? paths.dashboard, { replace: true });
+  // eslint-disable-next-line unicorn/no-null
+  if (user) return null;
 
   return <Outlet />;
 }
