@@ -1,6 +1,8 @@
-import { useMe, useSignout } from '@/features/auth';
 import { RiLoader2Line, RiLogoutBoxLine } from '@remixicon/react';
 import { Link } from 'react-router';
+
+import { paths } from '@/app/routes';
+import { useMe, useSignout } from '@/features/auth';
 import { Button } from './ui/button';
 import {
   NavigationMenu,
@@ -20,7 +22,7 @@ export default function Header() {
 
   return (
     <header className="mb-15 w-full bg-white shadow">
-      <div className="mx-auto flex max-w-5xl items-center justify-between p-5">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-8 py-3">
         <h1 className="font-heading text-2xl font-bold">App</h1>
 
         <NavigationMenu>
@@ -28,7 +30,7 @@ export default function Header() {
             <NavigationMenuItem>
               <NavigationMenuLink
                 className={navigationMenuTriggerStyle()}
-                render={<Link to="/">Home</Link>}
+                render={<Link to={paths.home}>Home</Link>}
               />
             </NavigationMenuItem>
             {user ? (
@@ -36,7 +38,7 @@ export default function Header() {
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     className={navigationMenuTriggerStyle()}
-                    render={<Link to="/dashboard">Dashboard</Link>}
+                    render={<Link to={paths.dashboard}>Dashboard</Link>}
                   />
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -73,7 +75,7 @@ export default function Header() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
-                  render={<Link to="/signin">Sign In</Link>}
+                  render={<Link to={paths.signin}>Sign In</Link>}
                 />
               </NavigationMenuItem>
             )}

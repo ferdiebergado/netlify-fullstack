@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { paths } from '@/app/routes';
 import config from '@/config';
 import { api } from '@/lib/http-client';
 import type { Profile } from '@shared/schemas/user';
@@ -36,7 +37,7 @@ export function validateState(returnedState: string | null): boolean {
 }
 
 const signin = async (code: string): Promise<Profile | null> =>
-  await api.post<Profile>('/signin', { code });
+  await api.post<Profile>(paths.signin, { code });
 
 export function useSignin() {
   const queryClient = useQueryClient();

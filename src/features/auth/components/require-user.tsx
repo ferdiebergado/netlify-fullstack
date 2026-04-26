@@ -1,3 +1,4 @@
+import { paths } from '@/app/routes';
 import Spinner from '@/components/spinner';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { useMe } from '..';
@@ -14,7 +15,7 @@ export default function RequireUser() {
       <p className="text-destructive">{error instanceof Error ? error.message : String(error)}</p>
     );
 
-  if (!user) navigate('/signin', { replace: true, state: { from: pathname } });
+  if (!user) navigate(paths.signin, { replace: true, state: { from: pathname } });
 
   return <Outlet />;
 }

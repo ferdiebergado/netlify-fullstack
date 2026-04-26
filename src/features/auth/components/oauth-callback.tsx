@@ -1,6 +1,8 @@
-import Spinner from '@/components/spinner';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
+
+import { paths } from '@/app/routes';
+import Spinner from '@/components/spinner';
 import { useSignin, validateState } from '..';
 
 export default function OauthCallback() {
@@ -16,7 +18,7 @@ export default function OauthCallback() {
     const isValidState = validateState(stateFromUrl);
     if (!isValidState || !code) return;
 
-    signin(code, { onSuccess: () => navigate(state?.from ?? '/dashboard', { replace: true }) });
+    signin(code, { onSuccess: () => navigate(state?.from ?? paths.dashboard, { replace: true }) });
   }, [navigate, searchParams, signin, state?.from]);
 
   if (isPending) return <Spinner text="Signing in..." />;

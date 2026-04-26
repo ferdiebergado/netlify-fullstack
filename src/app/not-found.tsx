@@ -9,11 +9,12 @@ import {
 } from '@/components/ui/empty';
 import { RiCloseLargeLine } from '@remixicon/react';
 import { useNavigate } from 'react-router';
+import { paths } from './routes';
 
 export default function PageNotFound() {
   const navigate = useNavigate();
 
-  const handleHome = () => navigate('/');
+  const handleHome = () => navigate(paths.home);
   const handleBack = () => navigate(-1);
 
   return (

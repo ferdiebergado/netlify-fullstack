@@ -1,3 +1,4 @@
+import { paths } from '@/app/routes';
 import Spinner from '@/components/spinner';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { useMe } from '..';
@@ -14,7 +15,7 @@ export default function RequireGuest() {
       <p className="text-destructive">{error instanceof Error ? error.message : String(error)}</p>
     );
 
-  if (user) navigate(state?.from ?? '/dashboard', { replace: true });
+  if (user) navigate(state?.from ?? paths.dashboard, { replace: true });
 
   return <Outlet />;
 }
