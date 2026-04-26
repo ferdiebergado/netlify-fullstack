@@ -39,6 +39,8 @@ const envSchema = z.object({
   DATABASE_URL: libsqlUrlSchema,
   TURSO_AUTH_TOKEN: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string({ error: 'GOOGLE_CLIENT_ID is not set.' }),
+  GOOGLE_CLIENT_SECRET: z.string({ error: 'GOOGLE_CLIENT_SECRET is not set.' }),
+  GOOGLE_REDIRECT_URI: z.url({ error: 'GOOGLE_REDIRECT_URI not set.' }),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   ENV: z.enum(['development', 'production', 'testing']).default('production'),
 });
@@ -55,6 +57,8 @@ const config = {
   databaseUrl: data.DATABASE_URL,
   tursoAuthToken: data.TURSO_AUTH_TOKEN,
   googleClientId: data.GOOGLE_CLIENT_ID,
+  googleClientSecret: data.GOOGLE_CLIENT_SECRET,
+  googleRedirectUri: data.GOOGLE_REDIRECT_URI,
   logLevel: data.LOG_LEVEL,
   env: data.ENV,
 };

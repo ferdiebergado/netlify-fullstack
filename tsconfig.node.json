@@ -22,9 +22,10 @@
 
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@backend/*": ["./backend/*"]
     },
     "ignoreDeprecations": "6.0"
   },
-  "include": ["vite.config.ts", "netlify/functions", "shared"]
+  "include": ["vite.config.ts", "netlify/functions", "shared", "backend"]
 }
