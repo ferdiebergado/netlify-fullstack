@@ -56,10 +56,10 @@ export async function touchSession(db: Client, id: string): Promise<Session | un
   logger.info('Updating session...');
 
   const sql = `
-      UPDATE sessions
-      SET last_active_at = ?, updated_at = ?
-      WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
-      RETURNING *
+UPDATE sessions
+SET last_active_at = ?, updated_at = ?
+WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
+RETURNING *
       `;
 
   const now = new Date().toISOString();
@@ -119,6 +119,4 @@ const mapSessionRowToSession = (row: SessionRow): Session =>
     createdAt: row.created_at,
   });
 
-const reportMissingSession = (sessionId: string) => {
-  logger.warn({ sessionId }, 'Session not found');
-};
+const reportMissingSession = (sessionId: string) => logger.warn({ sessionId }, 'Session not found');
