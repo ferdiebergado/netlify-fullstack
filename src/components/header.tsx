@@ -39,7 +39,11 @@ export default function Header() {
                   <li>
                     <NavigationMenuLink
                       render={
-                        <Button variant="ghost" className="w-full" onClick={handleSignout}>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start gap-2"
+                          onClick={handleSignout}
+                        >
                           {isPending ? (
                             <>
                               <RiLoader2Line className="animate-spin" data-icon="inline-start" />
