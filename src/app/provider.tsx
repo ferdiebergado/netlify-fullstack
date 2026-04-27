@@ -1,3 +1,4 @@
+import ThemeProvider from '@/features/theme/theme-provider';
 import { queryClient } from '@/lib/query-client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -11,8 +12,10 @@ type ProviderProps = {
 export default function Provider({ children }: ProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>{children}</BrowserRouter>
-      <ReactQueryDevtools />
+      <ThemeProvider>
+        <BrowserRouter>{children}</BrowserRouter>
+        <ReactQueryDevtools />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
