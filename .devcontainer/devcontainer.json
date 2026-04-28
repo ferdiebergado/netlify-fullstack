@@ -1,0 +1,84 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "Node.js & TypeScript",
+
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:4-22-trixie",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "installSsl": true,
+      "username": "automatic",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+    "ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [8888],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "npm install",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.colorCustomizations": {
+          "terminal.background": "#FAFAFA",
+          "terminal.foreground": "#2E3440",
+          "terminalCursor.background": "#2E3440",
+          "terminalCursor.foreground": "#2E3440",
+          "terminal.selectionBackground": "#D8DEE9",
+          "terminal.selectionForeground": "#2E3440",
+
+          "terminal.ansiBlack": "#3B4252",
+          "terminal.ansiRed": "#BF616A",
+          "terminal.ansiGreen": "#5E8B6F",
+          "terminal.ansiYellow": "#D08770",
+          "terminal.ansiBlue": "#4C73B8",
+          "terminal.ansiMagenta": "#8F6AAE",
+          "terminal.ansiCyan": "#4C9FB0",
+          "terminal.ansiWhite": "#ECEFF4",
+
+          "terminal.ansiBrightBlack": "#434C5E",
+          "terminal.ansiBrightRed": "#C95C66",
+          "terminal.ansiBrightGreen": "#6FAF8E",
+          "terminal.ansiBrightYellow": "#E0A070",
+          "terminal.ansiBrightBlue": "#5E81AC",
+          "terminal.ansiBrightMagenta": "#9B7BC2",
+          "terminal.ansiBrightCyan": "#5FB3C4",
+          "terminal.ansiBrightWhite": "#FFFFFF"
+        },
+
+        "terminal.integrated.cursorBlinking": true,
+        "terminal.integrated.cursorStyle": "block"
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "warrenbuckley.sqlite",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "sleistner.vscode-fileutils",
+        "tamasfe.even-better-toml",
+        "wix.vscode-import-cost",
+        "yoavbls.pretty-ts-errors",
+        "bradlc.vscode-tailwindcss",
+        "vitest.explorer",
+        "editorconfig.editorconfig"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
