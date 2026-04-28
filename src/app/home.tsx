@@ -1,29 +1,17 @@
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { useNavigate } from 'react-router';
+
+import { Button } from '@/components/ui/button';
+import { paths } from './routes';
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
-    <section>
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="font-heading p-3 text-2xl font-semibold">Home</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-          <CardAction>Card Action</CardAction>
-        </CardHeader>
-        <CardContent>
-          <p>Hello World!</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
+    <section className="flex flex-col items-center justify-center gap-5">
+      <h1 className="font-heading p-3 text-3xl font-semibold">Welcome</h1>
+      <Button size="lg" onClick={() => navigate(paths.signin)}>
+        Get started
+      </Button>
     </section>
   );
 }

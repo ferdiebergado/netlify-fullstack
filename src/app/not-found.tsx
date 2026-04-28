@@ -1,3 +1,6 @@
+import { RiCloseLargeLine } from '@remixicon/react';
+import { useNavigate } from 'react-router';
+
 import { Button } from '@/components/ui/button';
 import {
   Empty,
@@ -7,15 +10,10 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
-import { RiCloseLargeLine } from '@remixicon/react';
-import { useNavigate } from 'react-router';
 import { paths } from './routes';
 
 export default function PageNotFound() {
   const navigate = useNavigate();
-
-  const handleHome = () => navigate(paths.home);
-  const handleBack = () => navigate(-1);
 
   return (
     <Empty>
@@ -27,8 +25,8 @@ export default function PageNotFound() {
         <EmptyDescription>The page you're looking for doesn't exist.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent className="flex-row justify-center gap-2">
-        <Button onClick={handleHome}>Home</Button>
-        <Button variant="outline" onClick={handleBack}>
+        <Button onClick={() => navigate(paths.home)}>Home</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>
           Go back
         </Button>
       </EmptyContent>
