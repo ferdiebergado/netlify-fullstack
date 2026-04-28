@@ -1,30 +1,26 @@
+import { lazy } from 'react';
 import type { RouteObject } from 'react-router';
 
 import GuestLayout from '@/components/guest-layout';
-import Layout from '@/components/layout';
 import OauthCallback from '@/features/auth/components/oauth-callback';
 import RequireGuest from '@/features/auth/components/require-guest';
 import RequireUser from '@/features/auth/components/require-user';
-import SigninPage from '@/features/auth/components/signin-page';
 import Dashboard from './dashboard';
-import Home from './home';
 import PageNotFound from './not-found';
+
+const Layout = lazy(() => import('@/components/layout'));
+const SigninPage = lazy(() => import('@/features/auth/components/signin-page'));
 
 export const paths = {
   home: '/',
   signin: '/signin',
   signout: '/signout',
-  dashboard: '/dashboard',
 };
 
 export const routes: RouteObject[] = [
   {
     Component: GuestLayout,
     children: [
-      {
-        path: paths.home,
-        Component: Home,
-      },
       {
         Component: RequireGuest,
         children: [
@@ -47,7 +43,7 @@ export const routes: RouteObject[] = [
         Component: RequireUser,
         children: [
           {
-            path: paths.dashboard,
+            path: paths.home,
             Component: Dashboard,
           },
         ],

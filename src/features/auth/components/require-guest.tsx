@@ -10,7 +10,7 @@ export default function RequireGuest() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate(state?.from ?? paths.dashboard, { replace: true });
+    if (user) navigate(state?.from ?? paths.home, { replace: true });
   }, [navigate, state?.from, user]);
 
   // eslint-disable-next-line unicorn/no-null

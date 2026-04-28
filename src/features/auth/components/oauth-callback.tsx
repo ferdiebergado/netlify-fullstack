@@ -18,7 +18,7 @@ export default function OauthCallback() {
     const isValidState = validateState(stateFromUrl);
     if (!isValidState || !code) return;
 
-    signin(code, { onSuccess: () => navigate(state?.from ?? paths.dashboard, { replace: true }) });
+    signin(code, { onSuccess: () => navigate(state?.from ?? paths.home, { replace: true }) });
   }, [navigate, searchParams, signin, state?.from]);
 
   if (isPending) return <SplashScreen />;

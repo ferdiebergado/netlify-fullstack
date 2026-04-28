@@ -35,7 +35,7 @@ export default function Header() {
             <NavigationMenuItem>
               <NavigationMenuLink
                 className={navigationMenuTriggerStyle()}
-                render={<Link to={paths.dashboard}>Dashboard</Link>}
+                render={<Link to={paths.home}>Dashboard</Link>}
               />
             </NavigationMenuItem>
             <NavigationMenuItem>
