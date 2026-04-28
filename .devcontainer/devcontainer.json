@@ -65,7 +65,6 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "warrenbuckley.sqlite",
         "christian-kohler.npm-intellisense",
         "christian-kohler.path-intellisense",
         "sleistner.vscode-fileutils",
