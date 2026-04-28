@@ -8,17 +8,9 @@
     <script>
       (function () {
         const theme = localStorage.getItem('vite-ui-theme') || 'system';
-        const root = window.document.documentElement;
-
-        const isDark =
-          theme === 'dark' ||
-          (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-        if (isDark) {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
+        const mql = matchMedia('(prefers-color-scheme: dark)');
+        const isDark = theme === 'dark' || (theme === 'system' && mql.matches);
+        document.documentElement.classList.toggle('dark', isDark);
       })();
     </script>
   </head>
