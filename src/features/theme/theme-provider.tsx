@@ -28,10 +28,12 @@ export default function ThemeProvider({
 
     updateTheme();
 
-    mediaQuery.addEventListener('change', updateTheme);
+    const event = 'change';
+
+    mediaQuery.addEventListener(event, updateTheme);
 
     return () => {
-      mediaQuery.removeEventListener('change', updateTheme);
+      mediaQuery.removeEventListener(event, updateTheme);
     };
   }, [theme]);
 
