@@ -19,19 +19,20 @@ export default function ThemeProvider({
 
   useEffect(() => {
     const root = globalThis.document.documentElement;
+    const mediaQuery = globalThis.matchMedia('(prefers-color-scheme: dark)');
 
-    root.classList.remove('light', 'dark');
+    const updateTheme = () => {
+      const isDark = theme === 'dark' || (theme === 'system' && mediaQuery.matches);
+      root.classList.toggle('dark', isDark);
+    };
 
-    if (theme === 'system') {
-      const systemTheme = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
+    updateTheme();
 
-      root.classList.add(systemTheme);
-      return;
-    }
+    mediaQuery.addEventListener('change', updateTheme);
 
-    root.classList.add(theme);
+    return () => {
+      mediaQuery.removeEventListener('change', updateTheme);
+    };
   }, [theme]);
 
   const value = {
