@@ -47,7 +47,7 @@ export default async function findUser(db: Client, id: number): Promise<User | u
   logger.info('[DB]: Finding user...');
 
   const sql = `
-SELECT * 
+SELECT *
 FROM users
 WHERE id = ? AND is_active = 1
 LIMIT 1
@@ -65,8 +65,8 @@ LIMIT 1
   return mapUserRowToUser(user);
 }
 
-function mapUserRowToUser(user: UserRow): User {
-  return UserSchema.parse({
+const mapUserRowToUser = (user: UserRow): User =>
+  UserSchema.parse({
     id: user.id,
     googleId: user.google_id,
     name: user.name,
@@ -79,4 +79,3 @@ function mapUserRowToUser(user: UserRow): User {
     updatedAt: user.updated_at,
     deletedAt: user.deleted_at,
   });
-}

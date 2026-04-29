@@ -33,11 +33,11 @@ export function bakeSessionCookie(sessionId: string, expiresAt: Date): Cookie {
   };
 }
 
-export function emptySessionCookie(): Cookie {
+export const emptySessionCookie = (): Cookie => {
   return {
     ...BASE_COOKIE,
     name: SESSION.COOKIE_NAME,
     value: '',
     maxAge: 0,
   };
-}
+};
