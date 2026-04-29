@@ -15,6 +15,7 @@ export const paths = {
   home: '/',
   signin: '/signin',
   signout: '/signout',
+  oauthCallback: '/oauthcallback'
 };
 
 export const routes: RouteObject[] = [
@@ -29,7 +30,7 @@ export const routes: RouteObject[] = [
             Component: SigninPage,
           },
           {
-            path: '/oauthcallback',
+            path: paths.oauthCallback,
             Component: OauthCallback,
           },
         ],
