@@ -14,8 +14,8 @@ export default function Provider({ children }: ProviderProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>{children}</BrowserRouter>
-        <ReactQueryDevtools />
       </ThemeProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
