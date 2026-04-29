@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 import { paths } from '@/app/routes';
 import { useSignout } from '@/features/auth';
 import { useTheme } from '@/features/theme';
-import { Button } from './ui/button';
+import NavMenuButton from './navmenu-button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -45,42 +45,30 @@ export default function Header() {
                   <li>
                     <NavigationMenuLink
                       render={
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start"
-                          onClick={() => setTheme('light')}
-                        >
+                        <NavMenuButton onClick={() => setTheme('light')}>
                           <RiSunLine />
                           Light
-                        </Button>
+                        </NavMenuButton>
                       }
                     />
                   </li>
                   <li>
                     <NavigationMenuLink
                       render={
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start"
-                          onClick={() => setTheme('dark')}
-                        >
+                        <NavMenuButton onClick={() => setTheme('dark')}>
                           <RiMoonClearLine />
                           Dark
-                        </Button>
+                        </NavMenuButton>
                       }
                     />
                   </li>
                   <li>
                     <NavigationMenuLink
                       render={
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start"
-                          onClick={() => setTheme('system')}
-                        >
+                        <NavMenuButton onClick={() => setTheme('system')}>
                           <RiComputerLine />
                           System
-                        </Button>
+                        </NavMenuButton>
                       }
                     />
                   </li>
@@ -94,11 +82,7 @@ export default function Header() {
                   <li>
                     <NavigationMenuLink
                       render={
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start gap-2"
-                          onClick={() => signout()}
-                        >
+                        <NavMenuButton onClick={() => signout()}>
                           {isPending ? (
                             <>
                               <RiLoader2Line className="animate-spin" data-icon="inline-start" />
@@ -110,7 +94,7 @@ export default function Header() {
                               Sign Out
                             </>
                           )}
-                        </Button>
+                        </NavMenuButton>
                       }
                     />
                   </li>
