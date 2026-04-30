@@ -77,7 +77,9 @@
         "yoavbls.pretty-ts-errors",
         "bradlc.vscode-tailwindcss",
         "vitest.explorer",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "pkief.material-icon-theme",
+        "github.copilot-chat"
       ]
     }
   }
