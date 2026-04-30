@@ -1,17 +1,8 @@
-import type { Client } from '@libsql/client';
+import type { Client, Row } from '@libsql/client';
 
 import { SessionSchema, type CreateSession, type Session } from '@shared/schemas/session';
+import { snakeToCamel } from '@shared/utils';
 import logger from '../logger';
-
-type SessionRow = {
-  id: number;
-  session_id: string;
-  user_id: number;
-  expires_at: string;
-  last_active_at: string;
-  created_at: string;
-  updated_at: string;
-};
 
 export async function createSession(db: Client, session: CreateSession): Promise<Session> {
   logger.info('[DB]: Creating session...');
@@ -27,7 +18,7 @@ RETURNING *
     session.userId,
     session.expiresAt.toISOString(),
   ]);
-  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+  return mapSessionRowToSession(rows[0]);
 }
 
 export async function findSession(db: Client, id: string): Promise<Session | undefined> {
@@ -38,7 +29,7 @@ export async function findSession(db: Client, id: string): Promise<Session | und
   const sql = `
 SELECT *
 FROM sessions
-WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL 
+WHERE session_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
 LIMIT 1
 `;
 
@@ -49,7 +40,7 @@ LIMIT 1
     return;
   }
 
-  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+  return mapSessionRowToSession(rows[0]);
 }
 
 export async function touchSession(db: Client, id: string): Promise<Session | undefined> {
@@ -71,7 +62,7 @@ RETURNING *
     return;
   }
 
-  return mapSessionRowToSession(rows[0] as unknown as SessionRow);
+  return mapSessionRowToSession(rows[0]);
 }
 
 export async function softDeleteSession(db: Client, id: string): Promise<boolean> {
@@ -100,7 +91,7 @@ export async function revokeSession(
   const sql = `
 UPDATE sessions
 SET is_revoked = 1, updated_at = ?
-WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL 
+WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND is_revoked = 0 AND deleted_at IS NULL
 `;
 
   const { rowsAffected } = await db.execute(sql, [now, sessionId, userId, now]);
@@ -108,15 +99,6 @@ WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND 
   return rowsAffected === 1;
 }
 
-const mapSessionRowToSession = (row: SessionRow): Session =>
-  SessionSchema.parse({
-    id: row.id,
-    sessionId: row.session_id,
-    userId: row.user_id,
-    expiresAt: new Date(row.expires_at),
-    lastActiveAt: row.last_active_at,
-    updatedAt: row.updated_at,
-    createdAt: row.created_at,
-  });
+const mapSessionRowToSession = (row: Row): Session => SessionSchema.parse(snakeToCamel(row));
 
 const reportMissingSession = (sessionId: string) => logger.warn({ sessionId }, 'Session not found');
