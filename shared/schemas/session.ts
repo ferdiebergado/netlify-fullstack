@@ -4,7 +4,7 @@ export const SessionSchema = z.object({
   id: z.number().int().positive(),
   sessionId: z.string(),
   userId: z.number().int().positive(),
-  expiresAt: z.iso.datetime({ offset: true }).transform(value => new Date(value)),
+  expiresAt: z.iso.datetime().transform(value => new Date(value)),
   isActive: z.preprocess(Boolean, z.boolean()).optional().nullable(),
   lastActiveAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
