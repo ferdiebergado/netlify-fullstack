@@ -15,7 +15,8 @@ export const paths = {
   home: '/',
   signin: '/signin',
   signout: '/signout',
-  oauthCallback: '/oauthcallback'
+  oauthCallback: '/oauthcallback',
+  me: '/me',
 };
 
 export const routes: RouteObject[] = [
