@@ -16,7 +16,8 @@
     "dev": "netlify dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@base-ui/react": "1.4.1",
@@ -68,6 +69,10 @@
     "prettier-plugin-tailwindcss": "0.7.3",
     "typescript": "6.0.2",
     "typescript-eslint": "8.58.2",
-    "vite": "8.0.10"
+    "vite": "8.0.10",
+    "vitest": "4.1.5"
+  },
+  "overrides": {
+    "@opentelemetry/api": "1.8.0"
   }
 }
