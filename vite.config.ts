@@ -9,6 +9,7 @@ const dirname = import.meta.dirname;
 
 const alias = {
   '@': path.resolve(dirname, './src'),
+  '@backend': path.resolve(dirname, './backend'),
   '@shared': path.resolve(dirname, './shared'),
 };
 
@@ -22,8 +23,8 @@ export default defineConfig({
     projects: [
       {
         test: {
-          name: 'unit',
-          include: ['tests/unit/**/*.{test,spec}.ts', 'tests/integration/**/*.{test,spec}.ts'],
+          name: 'node',
+          include: ['backend/**/*.{test,spec}.ts'],
           alias,
           environment: 'node',
         },

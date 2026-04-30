@@ -32,7 +32,7 @@ export default defineConfig([
     rules: unicornRelaxedRules,
   },
   {
-    files: ['shared/**/*.ts', 'netlify/functions/**/*.ts'],
+    files: ['backend/**/*ts', 'netlify/functions/**/*.ts', 'shared/**/*.ts'],
     extends: [js.configs.recommended, tseslint.configs.strictTypeChecked, sharedExtends],
     languageOptions: {
       globals: globals.node,
