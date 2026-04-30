@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { ThemeProviderContext, type Theme } from '.';
 
 type ThemeProviderProps = {
@@ -17,7 +17,7 @@ export default function ThemeProvider({
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = globalThis.document.documentElement;
     const mediaQuery = globalThis.matchMedia('(prefers-color-scheme: dark)');
 
