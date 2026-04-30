@@ -27,5 +27,5 @@
     },
     "ignoreDeprecations": "6.0"
   },
-  "include": ["vite.config.ts", "netlify/functions", "shared", "backend"]
+  "include": ["vite.config.ts", "netlify/functions", "shared", "backend", "tests/unit"]
 }
