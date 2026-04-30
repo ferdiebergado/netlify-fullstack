@@ -8,7 +8,7 @@ import {
 import { Link } from 'react-router';
 
 import { paths } from '@/app/routes';
-import { useSignout } from '@/features/auth';
+import { useSignout } from '@/features/auth/hooks';
 import { useTheme } from '@/features/theme';
 import NavMenuButton from './navmenu-button';
 import {

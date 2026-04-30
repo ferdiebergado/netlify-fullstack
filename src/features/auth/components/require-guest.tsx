@@ -2,7 +2,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { paths } from '@/app/routes';
 import { useEffect } from 'react';
-import { useMe } from '..';
+import { useMe } from '../hooks';
 
 export default function RequireGuest() {
   const { data: user } = useMe();

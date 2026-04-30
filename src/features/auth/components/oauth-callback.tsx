@@ -3,7 +3,8 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { paths } from '@/app/routes';
 import SplashScreen from '@/components/splash-screen';
-import { useSignin, validateState } from '..';
+import { validateState } from '..';
+import { useSignin } from '../hooks';
 
 export default function OauthCallback() {
   const [searchParams] = useSearchParams();
@@ -25,7 +26,7 @@ export default function OauthCallback() {
 
   if (isError)
     return (
-      <p className="text-destructive">{error instanceof Error ? error.message : String(error)}</p>
+      <p className="text-destructive text-xl font-semibold">{error instanceof Error ? error.message : String(error)}</p>
     );
 
   // eslint-disable-next-line unicorn/no-null
