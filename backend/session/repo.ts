@@ -18,7 +18,7 @@ RETURNING *
     session.userId,
     session.expiresAt.toISOString(),
   ]);
-  return mapSessionRowToSession(rows[0]);
+  return mapRowToSession(rows[0]);
 }
 
 export async function findSession(db: Client, id: string): Promise<Session | undefined> {
@@ -40,7 +40,7 @@ LIMIT 1
     return;
   }
 
-  return mapSessionRowToSession(rows[0]);
+  return mapRowToSession(rows[0]);
 }
 
 export async function touchSession(db: Client, id: string): Promise<Session | undefined> {
@@ -62,7 +62,7 @@ RETURNING *
     return;
   }
 
-  return mapSessionRowToSession(rows[0]);
+  return mapRowToSession(rows[0]);
 }
 
 export async function softDeleteSession(db: Client, id: string): Promise<boolean> {
@@ -99,6 +99,6 @@ WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND 
   return rowsAffected === 1;
 }
 
-const mapSessionRowToSession = (row: Row): Session => SessionSchema.parse(snakeToCamel(row));
+const mapRowToSession = (row: Row): Session => SessionSchema.parse(snakeToCamel(row));
 
 const reportMissingSession = (sessionId: string) => logger.warn({ sessionId }, 'Session not found');

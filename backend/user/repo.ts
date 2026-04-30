@@ -46,7 +46,7 @@ LIMIT 1
     return;
   }
 
-  return mapUserRowToUser(rows[0]);
+  return mapRowToUser(rows[0]);
 }
 
-const mapUserRowToUser = (user: Row): User => UserSchema.parse(snakeToCamel(user));
+const mapRowToUser = (row: Row): User => UserSchema.parse(snakeToCamel(row));
