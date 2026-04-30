@@ -33,11 +33,9 @@ export function bakeSessionCookie(sessionId: string, expiresAt: Date): Cookie {
   };
 }
 
-export const emptySessionCookie = (): Cookie => {
-  return {
-    ...BASE_COOKIE,
-    name: SESSION.COOKIE_NAME,
-    value: '',
-    maxAge: 0,
-  };
-};
+export const emptySessionCookie = (): Cookie => ({
+  ...BASE_COOKIE,
+  name: SESSION.COOKIE_NAME,
+  value: '',
+  maxAge: 0,
+});
