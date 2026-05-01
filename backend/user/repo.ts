@@ -12,7 +12,11 @@ export async function upsertUser(db: Client, user: CreateUser): Promise<User['id
 INSERT INTO users (google_id, name, email, picture, role, is_active)
 VALUES (?, ?, ?, ?, ?, ?)
 ON CONFLICT (google_id)
-DO UPDATE SET last_login_at = ?
+DO UPDATE SET
+  name = EXCLUDED.name,
+  email = EXCLUDED.email,
+  picture = EXCLUDED.picture,
+  last_login_at = ?
 RETURNING id
 `;
 
