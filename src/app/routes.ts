@@ -9,6 +9,7 @@ const OauthCallback = lazy(() => import('@/features/auth/components/oauth-callba
 const Layout = lazy(() => import('@/components/layout'));
 const RequireUser = lazy(() => import('@/features/auth/components/require-user'));
 const Dashboard = lazy(() => import('./dashboard'));
+const BugReportForm = lazy(() => import('./bug-report'));
 const PageNotFound = lazy(() => import('./not-found'));
 
 export const paths = {
@@ -17,6 +18,7 @@ export const paths = {
   signout: '/signout',
   oauthCallback: '/oauthcallback',
   me: '/me',
+  bugReport: '/bug-report',
 };
 
 export const routes: RouteObject[] = [
@@ -49,6 +51,10 @@ export const routes: RouteObject[] = [
             Component: Dashboard,
           },
         ],
+      },
+      {
+        path: paths.bugReport,
+        Component: BugReportForm,
       },
     ],
   },

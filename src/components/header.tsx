@@ -39,6 +39,12 @@ export default function Header() {
               />
             </NavigationMenuItem>
             <NavigationMenuItem>
+              <NavigationMenuLink
+                className={navigationMenuTriggerStyle()}
+                render={<Link to={paths.bugReport}>Report a bug</Link>}
+              />
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <NavigationMenuTrigger>Theme</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-50">
