@@ -6,6 +6,7 @@ import {
   RiSunLine,
 } from '@remixicon/react';
 import { Link } from 'react-router';
+import { toast } from 'sonner';
 
 import { paths } from '@/app/routes';
 import { useSignout } from '@/features/auth/hooks';
@@ -22,8 +23,12 @@ import {
 } from './ui/navigation-menu';
 
 export default function Header() {
-  const { isPending, mutate: signout } = useSignout();
   const { setTheme } = useTheme();
+  const { isPending, mutate: signout } = useSignout();
+
+  const handleSignout = () => {
+    signout(undefined, { onSuccess: () => toast.success('Successfully signed out!') });
+  };
 
   return (
     <header className="mb-15 w-full bg-white shadow dark:bg-neutral-900 dark:text-white">
@@ -88,7 +93,7 @@ export default function Header() {
                   <li>
                     <NavigationMenuLink
                       render={
-                        <NavMenuButton onClick={() => signout()}>
+                        <NavMenuButton onClick={handleSignout} disabled={isPending}>
                           {isPending ? (
                             <>
                               <RiLoader2Line className="animate-spin" data-icon="inline-start" />

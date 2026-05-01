@@ -20,6 +20,7 @@ import {
   InputGroupTextarea,
 } from '@/components/ui/input-group';
 import type { CSSProperties } from 'react';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   title: z
@@ -42,7 +43,7 @@ export default function BugReportForm() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log('You submitted the following values:', {
+    toast.info('You submitted the following values:', {
       description: (
         <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
           <code>{JSON.stringify(data, null, 2)}</code>
