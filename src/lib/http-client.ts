@@ -1,3 +1,5 @@
+import type { UnknownRecord } from 'type-fest';
+
 import { API_BASE_URL } from '@shared/constants';
 import type { ApiResponse } from '@shared/types';
 
@@ -43,19 +45,19 @@ async function request<T>(path: string, options?: RequestInit): Promise<T | null
 
 export const api = {
   get: <T>(path: string, options?: RequestInit) => request<T>(path, options),
-  post: <T>(path: string, body: unknown, options?: RequestInit) =>
+  post: <T>(path: string, data: UnknownRecord = {}, options?: RequestInit) =>
     request<T>(path, {
       ...options,
       method: 'POST',
       headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
     }),
-  put: <T>(path: string, body: unknown, options?: RequestInit) =>
+  put: <T>(path: string, data: UnknownRecord, options?: RequestInit) =>
     request<T>(path, {
       ...options,
       method: 'PUT',
       headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
     }),
   delete: <T>(path: string, options?: RequestInit) =>
     request<T>(path, {
