@@ -30,6 +30,35 @@ function = "session"
 path = "/api/*"
 function = "csrf"
 
+[[edge_functions]]
+path = "/*"
+excludedPath = [
+  "/api/*",
+  "/**/*.js",
+  "/**/*.mjs",
+  "/**/*.css",
+  "/**/*.png",
+  "/**/*.jpg",
+  "/**/*.jpeg",
+  "/**/*.gif",
+  "/**/*.svg",
+  "/**/*.ico",
+  "/**/*.webmanifest",
+  "/**/*.woff2",
+  "/**/*.woff",
+  "/**/*.ttf",
+  "/**/*.eot",
+  "/**/*.otf",
+  "/**/*.mp4",
+  "/**/*.webm",
+  "/**/*.ogg",
+  "/**/*.mp3",
+  "/**/*.wav",
+  "/**/*.ts",
+  "/**/*.tsx",
+]
+function = "response"
+
 [dev]
 command = "vite"
 port = 8888

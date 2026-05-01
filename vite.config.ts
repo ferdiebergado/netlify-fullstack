@@ -5,6 +5,8 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { defineConfig, loadEnv } from 'vite';
 
+import { CSP_NONCE_PLACEHOLDER } from './shared/constants';
+
 const dirname = import.meta.dirname;
 
 const alias = {
@@ -42,5 +44,8 @@ export default defineConfig({
         },
       },
     ],
+  },
+  html: {
+    cspNonce: CSP_NONCE_PLACEHOLDER,
   },
 });
