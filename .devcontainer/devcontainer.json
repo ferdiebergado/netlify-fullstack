@@ -10,7 +10,8 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22.22.0",
-      "npmVersion": "10.9.4"
+      "npmVersion": "10.9.4",
+      "pnpmVersion": "10.33.0"
     },
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true,
@@ -30,7 +31,7 @@
   "forwardPorts": [8888],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "pnpm install",
 
   // Configure tool-specific properties.
   "customizations": {
