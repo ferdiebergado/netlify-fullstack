@@ -16,12 +16,12 @@ export default function PageNotFound() {
   const navigate = useNavigate();
 
   return (
-    <Empty>
+    <Empty className="flex h-dvh items-center justify-center bg-neutral-50 dark:bg-neutral-900">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <RiCloseLargeLine />
         </EmptyMedia>
-        <EmptyTitle className="text-3xl font-semibold">Page not found</EmptyTitle>
+        <EmptyTitle className="text-4xl font-semibold">Page not found</EmptyTitle>
         <EmptyDescription>The page you're looking for doesn't exist.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent className="flex-row justify-center gap-2">
