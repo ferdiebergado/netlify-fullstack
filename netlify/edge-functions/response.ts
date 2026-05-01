@@ -77,38 +77,55 @@ const SECURITY_HEADERS = {
   X_FRAME_OPTIONS: 'DENY', // Additional protection against clickjacking
 };
 
+type CSPDirective = keyof typeof SECURITY_HEADERS.CSP_DIRECTIVES;
+
 /**
  * Builds a Content Security Policy string from directives
  * @param directives Object mapping directive names to their values
  * @param nonce Optional nonce to include in script/style-src
  * @returns Formatted CSP string
  */
-function buildCSP(directives: Record<string, string[]>, nonce?: string): string {
+function buildCSP(directives: Record<CSPDirective, string[]>, nonce?: string): string {
+  // Extract environment check for clarity and performance
+  const isDevelopment = config.env === 'development';
+
   return Object.entries(directives)
     .map(([directive, values]) => {
       let value = '';
 
+      // Handle nonce-specific directives when nonce is provided
       if (nonce) {
-        if (directive === 'script-src') value = `'nonce-${nonce}'`;
+        const nonceValue = `'nonce-${nonce}'`;
 
-        if (directive === 'style-src') {
-          value = config.env === 'development' ? `'unsafe-inline'` : `'nonce-${nonce}'`;
+        switch (directive) {
+          case 'script-src': {
+            value = nonceValue;
+            break;
+          }
+          case 'style-src': {
+            // Use unsafe-inline in development for HMR, nonce in production
+            value = isDevelopment ? `'unsafe-inline'` : nonceValue;
+            break;
+          }
         }
       }
 
-      values = [...values, value];
+      // Filter out empty values to prevent unnecessary spacing
+      values = [...values, value].filter(Boolean);
 
       return `${directive} ${values.join(' ')}`;
     })
     .join('; ');
 }
 
+type PermissionsDirective = keyof typeof SECURITY_HEADERS.PERMISSIONS_POLICY;
+
 /**
  * Builds a Permissions Policy string from directives
  * @param directives Object mapping feature names to their allowlists
  * @returns Formatted Permissions Policy string
  */
-function buildPermissionsPolicy(directives: Record<string, string>): string {
+function buildPermissionsPolicy(directives: Record<PermissionsDirective, string>): string {
   return Object.entries(directives)
     .map(([feature, allowlist]) => {
       // For empty allowlists, use empty parentheses to deny all
