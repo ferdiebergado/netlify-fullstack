@@ -1,5 +1,9 @@
+import { RiMoreFill } from '@remixicon/react';
+import type { ColumnDef } from '@tanstack/react-table';
+
 import { DataTable } from '@/components/data-table';
 import SortButton from '@/components/sort-button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -9,7 +13,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import type { ColumnDef } from '@tanstack/react-table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export type Payment = {
   id: string;
@@ -30,6 +42,37 @@ const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'amount',
     header: ({ column }) => <SortButton column={column}>Amount</SortButton>,
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const payment = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <RiMoreFill className="size-4" />
+              </Button>
+            }
+          />
+
+          <DropdownMenuContent align="end">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>
+                Copy payment ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View customer</DropdownMenuItem>
+              <DropdownMenuItem>View payment details</DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
 
