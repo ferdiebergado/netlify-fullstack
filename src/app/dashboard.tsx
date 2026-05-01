@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/data-table';
+import SortButton from '@/components/sort-button';
 import {
   Card,
   CardAction,
@@ -20,15 +21,15 @@ export type Payment = {
 const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: ({ column }) => <SortButton column={column}>Status</SortButton>,
   },
   {
     accessorKey: 'email',
-    header: 'Email',
+    header: ({ column }) => <SortButton column={column}>Email</SortButton>,
   },
   {
     accessorKey: 'amount',
-    header: 'Amount',
+    header: ({ column }) => <SortButton column={column}>Amount</SortButton>,
   },
 ];
 
@@ -39,6 +40,12 @@ function getData(): Payment[] {
       amount: 100,
       status: 'pending',
       email: 'm@example.com',
+    },
+    {
+      id: '728ed52g',
+      amount: 500,
+      status: 'success',
+      email: 'h@example.com',
     },
   ];
 }
