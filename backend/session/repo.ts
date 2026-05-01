@@ -101,4 +101,6 @@ WHERE session_id = ? AND user_id = ? AND datetime(expires_at) > datetime(?) AND 
 
 const mapRowToSession = (row: Row): Session => SessionSchema.parse(snakeToCamel(row));
 
-const reportMissingSession = (sessionId: string) => logger.warn({ sessionId }, 'Session not found');
+const reportMissingSession = (sessionId: string) => {
+  logger.warn({ sessionId }, 'Session not found');
+};
