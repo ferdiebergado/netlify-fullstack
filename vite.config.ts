@@ -2,15 +2,15 @@
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import path from 'node:path';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
 const dirname = import.meta.dirname;
 
 const alias = {
-  '@': path.resolve(dirname, './src'),
-  '@backend': path.resolve(dirname, './backend'),
-  '@shared': path.resolve(dirname, './shared'),
+  '@': resolve(dirname, './src'),
+  '@backend': resolve(dirname, './backend'),
+  '@shared': resolve(dirname, './shared'),
 };
 
 // https://vite.dev/config/
@@ -23,8 +23,16 @@ export default defineConfig({
     projects: [
       {
         test: {
-          name: 'node',
+          name: 'unit',
           include: ['backend/**/*.{test,spec}.ts'],
+          alias,
+          environment: 'node',
+        },
+      },
+      {
+        test: {
+          name: 'integration',
+          include: ['tests/integration/**/*.{test,spec}.ts'],
           alias,
           environment: 'node',
         },
