@@ -1,4 +1,4 @@
-import { RiMoreFill } from '@remixicon/react';
+import { RiMore2Fill } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { DataTable } from '@/components/data-table';
@@ -54,7 +54,7 @@ const columns: ColumnDef<Payment>[] = [
             render={
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
-                <RiMoreFill className="size-4" />
+                <RiMore2Fill className="size-4" />
               </Button>
             }
           />
