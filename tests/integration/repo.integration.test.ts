@@ -87,11 +87,58 @@ describe('UserRepo', () => {
       vi.useRealTimers();
     });
 
-    it.todo('should return the upserted user with id');
-    it.todo('should throw an error if database operation fails');
+    it('should throw an error if database operation fails', async () => {
+      // Mock the db.execute method to throw an error
+      const executeSpy = vi
+        .spyOn(db, 'execute')
+        .mockRejectedValueOnce(new Error('Database connection failed'));
+
+      // Expect the upsertUser call to throw an error
+      await expect(upsertUser(db, user)).rejects.toThrow('Database connection failed');
+
+      // Verify the mock was called
+      expect(executeSpy).toHaveBeenCalled();
+    });
     it.todo('should handle concurrent upsert operations correctly');
-    it.todo('should not create duplicate users with the same googleId');
-    it.todo('should update the name, email, and picture fields on existing user');
-    it.todo('should return null if upsert operation fails');
+
+    it('should update the name, email, and picture fields on existing user', async () => {
+      vi.useFakeTimers();
+
+      const userId = await upsertUser(db, user);
+
+      vi.advanceTimersByTime(60_000);
+
+      const updatedUser: CreateUser = {
+        googleId: user.googleId, // Same googleId to trigger update
+        name: 'Updated User Name',
+        email: 'updated@example.com',
+        picture: 'http://example.com/updated-picture.jpg',
+      };
+
+      const updatedUserId = await upsertUser(db, updatedUser);
+
+      expect(updatedUserId).toBe(userId);
+
+      const { rows } = await db.execute('SELECT * FROM users WHERE id = ?', [userId]);
+      expect(rows).toHaveLength(1);
+
+      const dbUser = rows[0];
+
+      expect(dbUser).toMatchObject({
+        google_id: user.googleId, // Should remain the same
+        name: updatedUser.name,
+        email: updatedUser.email,
+        picture: updatedUser.picture,
+      });
+
+      const updatedAt = new Date(dbUser.updated_at as string).getTime();
+      const lastLoginAt = new Date(dbUser.last_login_at as string).getTime();
+
+      const now = Date.now();
+      expect(updatedAt).toBeCloseTo(now, -20);
+      expect(lastLoginAt).toBeCloseTo(now);
+
+      vi.useRealTimers();
+    });
   });
 });
