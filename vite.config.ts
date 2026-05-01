@@ -3,7 +3,7 @@ import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
 const dirname = import.meta.dirname;
 
@@ -12,6 +12,8 @@ const alias = {
   '@backend': resolve(dirname, './backend'),
   '@shared': resolve(dirname, './shared'),
 };
+
+const env = loadEnv('testing', process.cwd(), '');
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -27,6 +29,7 @@ export default defineConfig({
           include: ['backend/**/*.{test,spec}.ts'],
           alias,
           environment: 'node',
+          env,
         },
       },
       {
@@ -35,6 +38,7 @@ export default defineConfig({
           include: ['tests/integration/**/*.{test,spec}.ts'],
           alias,
           environment: 'node',
+          env,
         },
       },
     ],
