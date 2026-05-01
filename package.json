@@ -21,7 +21,8 @@
     "test": "vitest",
     "db:create": "sqlite3 local.db < ./init.sql",
     "db": "sqlite3 -init .sqliterc local.db",
-    "db:reset": "rm -f local.db && npm run db:create"
+    "db:reset": "rm -f local.db && npm run db:create",
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "1.4.1",
