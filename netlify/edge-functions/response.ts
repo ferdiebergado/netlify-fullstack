@@ -1,7 +1,6 @@
 import type { Context } from '@netlify/edge-functions';
 import { randomBytes } from 'node:crypto';
 
-import config from '@backend/config.js';
 import { CSP_NONCE_PLACEHOLDER, GOOGLE_ACCOUNTS_ORIGIN } from '@shared/constants.js';
 
 // Security headers configuration
@@ -87,7 +86,7 @@ type CSPDirective = keyof typeof SECURITY_HEADERS.CSP_DIRECTIVES;
  */
 function buildCSP(directives: Record<CSPDirective, string[]>, nonce?: string): string {
   // Extract environment check for clarity and performance
-  const isDevelopment = config.env === 'development';
+  const isDevelopment = process.env.ENV === 'development';
 
   return Object.entries(directives)
     .map(([directive, values]) => {

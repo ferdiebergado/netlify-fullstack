@@ -1,4 +1,4 @@
-import { SESSION } from '../constants';
+import { SESSION } from '@shared/constants';
 
 type Cookie = {
   name: string;

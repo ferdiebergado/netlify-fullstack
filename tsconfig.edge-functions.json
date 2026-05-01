@@ -27,8 +27,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["./shared/*"],
-      "@backend/*": ["./backend/*"]
+      "@shared/*": ["./shared/*"]
     },
     "ignoreDeprecations": "6.0"
   },

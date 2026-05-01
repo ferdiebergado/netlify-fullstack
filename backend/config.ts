@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import logger from './logger.ts';
+import logger from './logger';
 
 const libsqlUrlSchema = z
   .string()
