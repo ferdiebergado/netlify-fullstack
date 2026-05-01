@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import type { Client, Row } from '@libsql/client';
 
-import { UserSchema, type CreateUser, type User } from '@shared/schemas/user';
+import { UserIdSchema, UserSchema, type CreateUser, type User } from '@shared/schemas/user';
 import { snakeToCamel } from '@shared/utils';
 import logger from '../logger';
 
@@ -26,7 +26,7 @@ RETURNING id
     new Date().toISOString(),
   ]);
 
-  return rows[0].id as unknown as number;
+  return UserIdSchema.parse(rows[0]).id;
 }
 
 export default async function findUser(db: Client, id: number): Promise<User | undefined> {

@@ -37,3 +37,5 @@ export const ProfileSchema = UserSchema.pick({
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;
+
+export const UserIdSchema = UserSchema.pick({ id: true });
