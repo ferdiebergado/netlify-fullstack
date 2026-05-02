@@ -28,5 +28,6 @@ dist-ssr
 
 # Env files
 .env
+.env.testing
 
 local.db
