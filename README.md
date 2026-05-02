@@ -1,75 +1,114 @@
-# React + TypeScript + Vite
+# Netlify Fullstack TypeScript Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fullstack starter for Netlify built with React, Vite, TypeScript, and serverless APIs.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 frontend with Vite and fast HMR
+- Netlify Functions API endpoints under `/api/*`
+- Netlify Edge middleware for request logging, content-type validation, session management, and CSRF protection
+- Shared `zod` schemas and TypeScript types across client and backend
+- SQLite/libsql database bootstrapped with `init.sql`
+- Auth flow with sign-in, sign-out, and user session handling
+- React Router v7 route-based layout and guarded routes
+- React Query for client-side data fetching and cache updates
+- Shadcn components
 
-## React Compiler
+## Tech stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- React 19
+- Vite 8
+- TypeScript 6
+- Netlify Functions and Edge Functions
+- React Router v7
+- React Query v5
+- Shadcn with base-ui
+- Zod for schema validation
+- SQLite/libsql database
+- Google Oauth
+- ESLint and Prettier for code quality
+- Vitest for testing
 
-Note: This will impact Vite dev & build performances.
+## Getting started
 
-## Expanding the ESLint configuration
+Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Run the development environment:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm dev
 ```
+
+Build the app:
+
+```bash
+pnpm build
+```
+
+Preview the production build:
+
+```bash
+pnpm preview
+```
+
+Lint the project:
+
+```bash
+pnpm lint
+```
+
+Run tests:
+
+```bash
+pnpm test
+```
+
+## Database commands
+
+Create the local SQLite database:
+
+```bash
+pnpm db:create
+```
+
+Interact with the database.
+
+```bash
+pnpm db
+```
+
+Reset the database:
+
+```bash
+pnpm db:reset
+```
+
+## Project structure
+
+- `src/` — React application, routes, UI components, and auth hooks
+- `backend/` — server utilities, database layer, OAuth, session, and HTTP helpers
+- `netlify/edge-functions/` — edge middleware for request, JSON, session, and CSRF handling
+- `netlify/functions/` — Netlify Functions API handlers
+- `shared/` — shared schemas, types, and utilities
+- `tests/` — integration tests and helpers
+
+## Netlify routing
+
+The `netlify.toml` configuration defines:
+
+- `/api/*` redirects to `/.netlify/functions/:splat`
+- SPA fallback for page routing via `/index.html`
+- edge functions for API requests and app response handling
+
+## Notes
+
+- The project uses `pnpm` and Node 22.
+- Path aliases are configured in `tsconfig.json`:
+  - `@/*` → `./src/*`
+  - `@backend/*` → `./backend/*`
+  - `@shared/*` → `./shared/*`
+- React Compiler support is enabled through `@vitejs/plugin-react`.
