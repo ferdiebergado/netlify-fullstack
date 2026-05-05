@@ -9,7 +9,7 @@ export default function Layout() {
   return (
     <div className="bg-background flex h-dvh flex-col">
       <Header />
-      <main className="mx-auto w-full max-w-5xl flex-1 p-3">
+      <main className="w-full flex-1 p-3 md:mx-auto md:max-w-5xl md:p-0">
         <Suspense fallback={<SkeletonPage />}>
           <Outlet />
         </Suspense>
