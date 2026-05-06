@@ -1,10 +1,11 @@
+import type { Context } from '@netlify/functions';
+
 import { getDb } from '@backend/db';
 import { checkMethod } from '@backend/http';
 import { NotFoundError, respondWithError } from '@backend/http/errors';
 import { getSession } from '@backend/session';
 import { emptySessionCookie } from '@backend/session/cookie';
 import { softDeleteSession } from '@backend/session/repo';
-import type { Context } from '@netlify/functions';
 import type { ApiResponse } from '@shared/types';
 
 export default async (req: Request, ctx: Context) => {
@@ -17,11 +18,8 @@ export default async (req: Request, ctx: Context) => {
 
     if (!isDeleted) throw new NotFoundError('Session not found or already deleted');
 
-    const payload: ApiResponse<{ message: string }> = {
+    const payload: ApiResponse = {
       success: true,
-      data: {
-        message: 'Signed out.',
-      },
     };
 
     const sessionCookie = emptySessionCookie();
