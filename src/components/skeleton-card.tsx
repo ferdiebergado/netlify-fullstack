@@ -5,8 +5,8 @@ export default function SkeletonCard() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <Skeleton className="h-8 w-2/3" />
-        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-7 w-1/4" />
+        <Skeleton className="h-4 w-1/3" />
       </CardHeader>
       <CardContent>
         <Skeleton className="h-28 w-full" />
