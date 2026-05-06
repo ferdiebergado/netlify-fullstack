@@ -4,7 +4,7 @@ import SigninButton from './signin-button';
 
 export default function SigninPage() {
   return (
-    <Card className="px-6 py-10">
+    <Card className="w-full px-6 py-10 md:max-w-lg">
       <CardContent className="flex flex-col items-center gap-10">
         <h1 className="text-center text-3xl font-semibold text-balance">
           Welcome to {config.appTitle}
