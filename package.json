@@ -58,6 +58,7 @@
     "@babel/core": "7.29.0",
     "@eslint/js": "10.0.1",
     "@rolldown/plugin-babel": "0.2.3",
+    "@tanstack/eslint-plugin-query": "5.100.6",
     "@total-typescript/ts-reset": "0.6.1",
     "@tsconfig/node22": "22.0.5",
     "@types/babel__core": "7.20.5",
