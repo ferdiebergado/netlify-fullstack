@@ -16,7 +16,7 @@ export default function PageNotFound() {
   const navigate = useNavigate();
 
   return (
-    <Empty className="flex h-dvh items-center justify-center bg-background">
+    <Empty className="bg-secondary flex h-dvh items-center justify-center">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <RiCloseLargeLine />

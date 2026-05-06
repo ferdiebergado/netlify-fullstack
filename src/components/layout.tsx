@@ -7,7 +7,7 @@ import SkeletonPage from './skeleton-page';
 
 export default function Layout() {
   return (
-    <div className="bg-background flex h-dvh flex-col">
+    <div className="bg-secondary flex h-dvh flex-col">
       <Header />
       <main className="w-full flex-1 px-3 pt-4 md:mx-auto md:max-w-5xl">
         <Suspense fallback={<SkeletonPage />}>

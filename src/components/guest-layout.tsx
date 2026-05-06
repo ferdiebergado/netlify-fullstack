@@ -4,7 +4,7 @@ import Header from './header';
 
 export default function GuestLayout() {
   return (
-    <div className="bg-background flex h-dvh flex-col">
+    <div className="bg-secondary flex h-dvh flex-col">
       <div className="pointer-events-none opacity-0">
         <Header />
       </div>
