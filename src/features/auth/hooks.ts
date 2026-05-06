@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { fetchMe, signin, signout } from "./api";
+import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { fetchMe, signin, signout } from './api';
 
 const QUERY_KEYS = {
   USER: ['user'] as const,
@@ -14,12 +14,14 @@ export function useSignin() {
   });
 }
 
-export const useMe = () =>
-  useSuspenseQuery({
+const useMeQueryOptions = () =>
+  queryOptions({
     queryKey: QUERY_KEYS.USER,
     queryFn: fetchMe,
     retry: false,
   });
+
+export const useMe = () => useSuspenseQuery(useMeQueryOptions());
 
 export function useSignout() {
   const queryClient = useQueryClient();
