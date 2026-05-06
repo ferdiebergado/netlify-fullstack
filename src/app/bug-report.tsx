@@ -62,7 +62,7 @@ export default function BugReportForm() {
   return (
     <Card className="mx-auto w-full sm:max-w-md">
       <CardHeader>
-        <CardTitle>Bug Report</CardTitle>
+        <CardTitle className="text-xl font-semibold">Bug Report</CardTitle>
         <CardDescription>Help us improve by reporting bugs you encounter.</CardDescription>
       </CardHeader>
       <CardContent>
