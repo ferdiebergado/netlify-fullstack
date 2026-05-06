@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router';
 
 import { Toaster } from '@/components/ui/sonner';
 import ThemeProvider from '@/features/theme/theme-provider';
-import { getCSPNonce } from '@/lib/csp';
 import { queryClient } from '@/lib/query-client';
 
 type ProviderProps = {
@@ -13,15 +12,13 @@ type ProviderProps = {
 };
 
 export default function Provider({ children }: ProviderProps) {
-  const nonce = getCSPNonce();
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>{children}</BrowserRouter>
         <Toaster position="top-right" richColors />
       </ThemeProvider>
-      <ReactQueryDevtools styleNonce={nonce} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
