@@ -9,7 +9,6 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -99,18 +98,15 @@ export default function Dashboard() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="font-heading p-3 text-2xl font-semibold">Dashboard</CardTitle>
+        <CardTitle className="font-heading text-xl font-semibold">Dashboard</CardTitle>
         <CardDescription>Card Description</CardDescription>
-        <CardAction>Card Action</CardAction>
+        <CardAction>
+          <Button type="button">Card Action</Button>
+        </CardAction>
       </CardHeader>
       <CardContent>
-        <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data} />
-        </div>
+        <DataTable columns={columns} data={data} />
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
     </Card>
   );
 }
