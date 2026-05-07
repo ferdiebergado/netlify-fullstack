@@ -1,8 +1,8 @@
-import type { FieldValues, useForm } from 'react-hook-form';
+import type { FieldValues, UseFormReturn } from 'react-hook-form';
 import { Button } from './ui/button';
 
 type FormButtonsProps<T extends FieldValues> = {
-  form: ReturnType<typeof useForm<T>>;
+  form: UseFormReturn<T>;
   isPending: boolean;
   onSubmit: (values: T) => void;
 };
@@ -18,7 +18,7 @@ export default function FormButtons<T extends FieldValues>({
         Reset
       </Button>
       <Button type="button" onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
-        {isPending ? 'Saving...' : 'Submit'}
+        {isPending ? 'Saving...' : 'Save'}
       </Button>
     </>
   );
