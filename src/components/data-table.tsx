@@ -32,9 +32,14 @@ import {
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filteredColumn: Extract<keyof TData, string>;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  filteredColumn,
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -61,10 +66,10 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
+          placeholder={`Filter ${filteredColumn}...`}
           type='search'
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={event => table.getColumn('email')?.setFilterValue(event.target.value)}
+          value={(table.getColumn(filteredColumn)?.getFilterValue() as string) ?? ''}
+          onChange={event => table.getColumn(filteredColumn)?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
         <DropdownMenu>
