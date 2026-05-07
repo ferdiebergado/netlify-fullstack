@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
+import { toast } from 'sonner';
 
 import { paths } from '@/app/routes';
 import SplashScreen from '@/components/splash-screen';
-import { toast } from 'sonner';
 import { validateState } from '..';
 import { useSignin } from '../hooks';
 
